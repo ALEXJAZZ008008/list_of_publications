@@ -1,6 +1,6 @@
 \ProvidesClass{cv}
 
-\LoadClass[a4paper, oneside, 12pt]{article}
+\LoadClass[a4paper, oneside, 11pt]{article}
 
 \usepackage{etoolbox}
 \usepackage{ifthen}
