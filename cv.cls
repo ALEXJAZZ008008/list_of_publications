@@ -1,6 +1,21 @@
 \ProvidesClass{cv}
 
-\LoadClass[a4paper, oneside, 11pt]{article}
+% Permit Computer Modern at non-standard font sizes.
+\RequirePackage{fix-cm}
+
+\LoadClass[a4paper, oneside, 10pt]{article}
+
+% Document font sizes
+\renewcommand{\LARGE}{\@setfontsize\LARGE{17pt}{20.4pt}}
+\renewcommand{\Large}{\@setfontsize\Large{13pt}{15.6pt}}
+\renewcommand{\large}{\@setfontsize\large{11pt}{13.2pt}}
+\newcommand{\subheadingsize}{\@setfontsize\subheadingsize{10pt}{12pt}}
+\renewcommand{\normalsize}{\@setfontsize\normalsize{10pt}{12pt}}
+\renewcommand{\small}{\@setfontsize\small{9.5pt}{11.4pt}}
+\renewcommand{\footnotesize}{\@setfontsize\footnotesize{9pt}{10.8pt}}
+
+% Date and recipient details
+\newcommand{\detailsize}{\@setfontsize\detailsize{9.5pt}{11.4pt}}
 
 \usepackage{etoolbox}
 \usepackage{ifthen}
@@ -22,34 +37,25 @@
 \let\ori@document=\document
 
 \AtBeginDocument{
-    % \noindent
-    % \begin{minipage}[t]{0.25\textwidth}
-    %     \raggedleft
-    %     \ifx\@photo\empty\else
-    %         \begin{figure}[H]
-    %             \vspace{-1.5cm}
-    %             \includegraphics[width=\@photowidth]{\@photo}
-    %         \end{figure}
-    %     \fi
-    % \end{minipage}%
-    % \hfill
-    % \begin{minipage}[t]{0.75\textwidth}
-    %     \vspace{-0.5cm}
-    %     {\MakeUppercase{\LARGE\bfseries \@name}}\par\nameskip
-    %     \vspace{1.0cm}
-    %     \begingroup
-    %        \def\\{\addressSep\ }
-    %         \raggedright
-    %         \@addresses
-    %     \endgroup
-    % \end{minipage}
-    % \par
+    \normalsize
+    \ifx\@name\@empty
+    \else
+        \noindent
+        \begin{minipage}{\textwidth}
+            \raggedright
+            {\LARGE\bfseries\MakeUppercase{\@name}}\par
+            \nameskip
+            {\small\@addresses}
+            \par
+        \end{minipage}
+        \par
+    \fi
 }
 
 \newenvironment{rSection}[1]
 {
     \sectionskip
-    \MakeUppercase{\bf #1}
+    {\large\bfseries\MakeUppercase{#1}}
     \sectionlineskip
     \hrule
   
@@ -66,11 +72,11 @@
 
 \newenvironment{rSubsection}[4]
 {
-    {\bf #1} \hfill {#2}
+    {\subheadingsize\bfseries #1} \hfill {\detailsize #2}
     \ifthenelse{\equal{#3}{}}{}
     {
         \\
-        {\em #3} \hfill {\em #4}
+        {\emph{#3}} \hfill {\detailsize\emph{#4}}
     }
     
     \smallskip
